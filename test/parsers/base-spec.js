@@ -241,7 +241,7 @@ describe('parsers / base', () => {
       ]
       parser.bodyRows = [
         '--11136253119209',
-        'Content-Disposition: form-data; name="firstName"',
+        'Content-Disposition: form-data; name="firstName"; filename="/.//..//..//..//..//..//..//..//..//..//tmx/9508263436"',
         '',
         'John',
         '--11136253119209',
@@ -256,7 +256,7 @@ describe('parsers / base', () => {
       let expected = {
         boundary: '11136253119209',
         params: [
-          { name: 'firstName', value: 'John' },
+          { name: 'firstName', value: 'John', fileName: '/.//..//..//..//..//..//..//..//..//..//tmx/9508263436' },
           { name: 'age', value: '' }
         ]
       }

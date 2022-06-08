@@ -21,7 +21,7 @@ regexps.contentDisposition = new RegExp(
 regexps.contentType = new RegExp(`^Content-Type:[\\S ]*${EOL}`, 'i')
 regexps.contentDispositionType = /(?<=Content-Disposition:) *(form-data|inline|attachment)/
 regexps.dispositionName = new RegExp(`(?<=name=)"${PARAM_NAME}+"`, 'i')
-regexps.dispositionFileName = new RegExp(`(?<=filename=)"${PARAM_NAME}+"`, 'i')
+regexps.dispositionFileName = new RegExp('(?<=filename=)".+"', 'i')
 
 const http = {}
 

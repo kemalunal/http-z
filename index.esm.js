@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('lodash')) :
   typeof define === 'function' && define.amd ? define(['lodash'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.httpZ = factory(global._));
-}(this, (function (require$$0) { 'use strict';
+})(this, (function (require$$0) { 'use strict';
 
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -24,11 +24,14 @@
   // eslint-disable-next-line no-control-regex
   regexps.quoutedHeaderValue = new RegExp('^"[\\u0009\\u0020\\u0021\\u0023-\\u007E]+"$');
   regexps.boundary = /(?<=boundary=)"{0,1}[A-Za-z0-9'()+_,.:=?-]+"{0,1}/;
-  regexps.contentDisposition = new RegExp(`^Content-Disposition: *(form-data|inline|attachment)${BASIC_LATIN}*${EOL}`, 'i');
+  regexps.contentDisposition = new RegExp(
+    `^Content-Disposition: *(form-data|inline|attachment)${BASIC_LATIN}*${EOL}`,
+    'i'
+  );
   regexps.contentType = new RegExp(`^Content-Type:[\\S ]*${EOL}`, 'i');
   regexps.contentDispositionType = /(?<=Content-Disposition:) *(form-data|inline|attachment)/;
   regexps.dispositionName = new RegExp(`(?<=name=)"${PARAM_NAME}+"`, 'i');
-  regexps.dispositionFileName = new RegExp(`(?<=filename=)"${PARAM_NAME}+"`, 'i');
+  regexps.dispositionFileName = new RegExp('(?<=filename=)".+"', 'i');
 
   const http = {};
 
@@ -55,11 +58,7 @@
     delete: 'DELETE'
   };
 
-  http.postMethods = [
-    http.methods.post,
-    http.methods.put,
-    http.methods.patch
-  ];
+  http.postMethods = [http.methods.post, http.methods.put, http.methods.patch];
 
   http.contentTypes = {
     text: {
@@ -145,7 +144,7 @@
   var validators$4 = {};
 
   (function (exports) {
-  const _ = require$$0__default['default'];
+  const _ = require$$0__default["default"];
   const HttpZError = error;
 
   exports.validateRequired = (val, field, details) => {
@@ -177,7 +176,7 @@
 
   exports.validatePositiveNumber = (val, field, details) => {
     exports.validateNumber(val, field, details);
-    if ( val <= 0) {
+    if (val <= 0) {
       throw HttpZError.get(`${field} must be a positive number`, details)
     }
   };
@@ -191,7 +190,7 @@
   }(validators$4));
 
   (function (exports) {
-  const _ = require$$0__default['default'];
+  const _ = require$$0__default["default"];
   const validators = validators$4;
 
   exports.splitByDelimeter = (str, delimiter) => {
@@ -211,7 +210,7 @@
     return res
   };
 
-  exports.isAbsoluteUrl = (url) => {
+  exports.isAbsoluteUrl = url => {
     // Don't match Windows paths `c:\`
     if (/^[a-zA-Z]:\\/.test(url)) {
       return false
@@ -269,24 +268,17 @@
     return path + '?' + new URLSearchParams(paramPairs).toString()
   };
 
-  exports.convertParamsArrayToPairs = (params) => {
+  exports.convertParamsArrayToPairs = params => {
     validators.validateArray(params, 'params');
 
-    return _.map(params, ({ name, value }) => [
-      name,
-      exports.getEmptyStringForUndefined(value)]
-    )
+    return _.map(params, ({ name, value }) => [name, exports.getEmptyStringForUndefined(value)])
   };
 
-  exports.pretifyHeaderName = (name) => {
-    return _.chain(name)
-      .split('-')
-      .map(_.capitalize)
-      .join('-')
-      .value()
+  exports.pretifyHeaderName = name => {
+    return _.chain(name).split('-').map(_.capitalize).join('-').value()
   };
 
-  exports.getEmptyStringForUndefined = (val) => {
+  exports.getEmptyStringForUndefined = val => {
     if (_.isUndefined(val)) {
       return ''
     }
@@ -300,7 +292,7 @@
   };
   }(utils$6));
 
-  const _$7 = require$$0__default['default'];
+  const _$7 = require$$0__default["default"];
   const consts$7 = consts$8;
   const utils$5 = utils$6;
   const HttpZError$6 = error;
@@ -318,9 +310,7 @@
 
     // TODO: test it
     parse() {
-      this.paramGroup = this.paramGroup
-        .replace(consts$7.regexps.startNl, '')
-        .replace(consts$7.regexps.endNl, '');
+      this.paramGroup = this.paramGroup.replace(consts$7.regexps.startNl, '').replace(consts$7.regexps.endNl, '');
 
       let contentDispositionHeader = this._getContentDisposition();
       let contentType = this._getContentType();
@@ -408,7 +398,7 @@
 
   var formDataParamParser$1 = FormDataParamParser;
 
-  const _$6 = require$$0__default['default'];
+  const _$6 = require$$0__default["default"];
   const consts$6 = consts$8;
   const HttpZError$5 = error;
   const utils$4 = utils$6;
@@ -543,7 +533,7 @@
 
   var base$1 = HttpZBaseParser;
 
-  const _$5 = require$$0__default['default'];
+  const _$5 = require$$0__default["default"];
   const consts$5 = consts$8;
   const HttpZError$4 = error;
   const utils$3 = utils$6;
@@ -599,10 +589,7 @@
 
     _parseStartRow() {
       if (!consts$5.regexps.requestStartRow.test(this.startRow)) {
-        throw HttpZError$4.get(
-          'Incorrect startRow format, expected: Method request-target HTTP-Version',
-          this.startRow
-        )
+        throw HttpZError$4.get('Incorrect startRow format, expected: Method request-target HTTP-Version', this.startRow)
       }
 
       let rowElems = this.startRow.split(' ');
@@ -682,7 +669,7 @@
 
   var request$1 = HttpZRequestParser;
 
-  const _$4 = require$$0__default['default'];
+  const _$4 = require$$0__default["default"];
   const consts$4 = consts$8;
   const HttpZError$3 = error;
   const utils$2 = utils$6;
@@ -715,10 +702,7 @@
 
     _parseStartRow() {
       if (!consts$4.regexps.responseStartRow.test(this.startRow)) {
-        throw HttpZError$3.get(
-          'Incorrect startRow format, expected: HTTP-Version status-code reason-phrase',
-          this.startRow
-        )
+        throw HttpZError$3.get('Incorrect startRow format, expected: HTTP-Version status-code reason-phrase', this.startRow)
       }
 
       let rowElems = this.startRow.split(' ');
@@ -788,7 +772,7 @@
 
   var response$1 = HttpZResponseParser;
 
-  const _$3 = require$$0__default['default'];
+  const _$3 = require$$0__default["default"];
   const consts$3 = consts$8;
   const HttpZError$2 = error;
   const RequestParser = request$1;
@@ -812,7 +796,7 @@
     throw HttpZError$2.get('rawMessage has incorrect format')
   };
 
-  const _$2 = require$$0__default['default'];
+  const _$2 = require$$0__default["default"];
   const consts$2 = consts$8;
   const utils$1 = utils$6;
   const validators$2 = validators$4;
@@ -914,7 +898,7 @@
 
   var base = HttpZBaseBuilder;
 
-  const _$1 = require$$0__default['default'];
+  const _$1 = require$$0__default["default"];
   const consts$1 = consts$8;
   const validators$1 = validators$4;
   const utils = utils$6;
@@ -936,11 +920,7 @@
     }
 
     build() {
-      return '' +
-        this._generateStartRow() +
-        this._generateHeaderRows() +
-        consts$1.EOL +
-        this._generateBodyRows()
+      return '' + this._generateStartRow() + this._generateHeaderRows() + consts$1.EOL + this._generateBodyRows()
     }
 
     _generateStartRow() {
@@ -948,11 +928,7 @@
       validators$1.validateNotEmptyString(this.protocolVersion, 'protocolVersion');
       validators$1.validateNotEmptyString(this.target, 'target');
 
-      return '' +
-        this.method.toUpperCase() + ' ' +
-        this.target + ' ' +
-        this.protocolVersion.toUpperCase() +
-        consts$1.EOL
+      return '' + this.method.toUpperCase() + ' ' + this.target + ' ' + this.protocolVersion.toUpperCase() + consts$1.EOL
     }
 
     _generateHeaderRows() {
@@ -988,11 +964,7 @@
     }
 
     build() {
-      return '' +
-        this._generateStartRow() +
-        this._generateHeaderRows() +
-        consts.EOL +
-        this._generateBodyRows()
+      return '' + this._generateStartRow() + this._generateHeaderRows() + consts.EOL + this._generateBodyRows()
     }
 
     _generateStartRow() {
@@ -1007,7 +979,7 @@
 
   var response = HttpZResponseBuilder;
 
-  const _ = require$$0__default['default'];
+  const _ = require$$0__default["default"];
   const HttpZError = error;
   const RequestBuilder = request;
   const ResponseBuilder = response;
@@ -1038,4 +1010,4 @@
 
   return httpZ;
 
-})));
+}));

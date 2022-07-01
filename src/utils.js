@@ -83,7 +83,7 @@ exports.convertParamsArrayToPairs = params => {
 }
 
 exports.pretifyHeaderName = name => {
-  return _.chain(name).split('-').map(_.capitalize).join('-').value()
+  return _.chain(name).split('-').join('-').value()
 }
 
 exports.getEmptyStringForUndefined = val => {

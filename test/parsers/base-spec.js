@@ -89,11 +89,11 @@ describe('parsers / base', () => {
           value: '*/*, text/plain'
         },
         {
-          name: 'Accept-Encoding',
+          name: 'accept-Encoding',
           value: 'gzip, deflate'
         },
         {
-          name: 'Accept-Language',
+          name: 'Accept-language',
           value: 'ru-RU, ru; q=0.8,en-US;q=0.6,en;  q=0.4'
         }
       ]

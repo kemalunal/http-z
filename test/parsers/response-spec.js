@@ -253,19 +253,19 @@ describe('parsers / response', () => {
         statusMessage: 'Created',
         headers: [
           {
-            name: 'Connection',
+            name: 'connection',
             value: ''
           },
           {
-            name: 'Cache-Control',
+            name: 'cache-Control',
             value: 'no-cache'
           },
           {
-            name: 'Content-Type',
+            name: 'Content-type',
             value: 'text/plain; charset=UTF-8'
           },
           {
-            name: 'Content-Encoding',
+            name: 'content-encoding',
             value: 'gzip,deflate'
           }
         ],

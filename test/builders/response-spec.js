@@ -100,19 +100,19 @@ describe('builders / response', () => {
         statusMessage: 'Created',
         headers: [
           {
-            name: 'connection',
+            name: 'Connection',
             value: ''
           },
           {
-            name: 'cache-Control',
+            name: 'Cache-Control',
             value: 'no-cache'
           },
           {
-            name: 'Content-type',
+            name: 'Content-Type',
             value: 'text/plain;charset=UTF-8'
           },
           {
-            name: 'content-encoding',
+            name: 'Content-Encoding',
             value: 'gzip, deflate'
           }
         ]

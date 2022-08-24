@@ -159,19 +159,19 @@ describe('builders / request', () => {
             value: 'example.com'
           },
           {
-            name: 'connection',
+            name: 'Connection',
             value: ''
           },
           {
-            name: 'accept',
+            name: 'Accept',
             value: '*/*'
           },
           {
-            name: 'cache-Control',
+            name: 'Cache-Control',
             value: 'no-cache'
           },
           {
-            name: 'content-encoding',
+            name: 'Content-Encoding',
             value: 'gzip, deflate'
           }
         ]

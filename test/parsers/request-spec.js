@@ -402,7 +402,7 @@ describe('parsers / request', () => {
           { name: 'p1', value: 'v1;' },
           { name: 'p2', value: '' }
         ],
-        headers: [{ name: 'Host', value: 'www.example.com' }],
+        headers: [{ name: 'host', value: 'www.example.com' }],
         headersSize: 62,
         bodySize: 0
       }
@@ -437,35 +437,35 @@ describe('parsers / request', () => {
         queryParams: [],
         headers: [
           {
-            name: 'Host',
+            name: 'host',
             value: 'example.com'
           },
           {
-            name: 'Connection',
+            name: 'connection',
             value: ''
           },
           {
-            name: 'Accept',
+            name: 'accept',
             value: '*/*'
           },
           {
-            name: 'Accept-Encoding',
+            name: 'accept-Encoding',
             value: 'gzip,deflate'
           },
           {
-            name: 'Accept-Language',
+            name: 'accept-language',
             value: 'ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4'
           },
           {
-            name: 'User-Agent',
+            name: 'user-agent',
             value: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:67.0) Gecko/20100101 Firefox/67.0'
           },
           {
-            name: 'Generated-By',
+            name: 'generated-by',
             value: 'modern-framework 2020'
           },
           {
-            name: 'Sec-Ch-Ua',
+            name: 'Sec-ch-ua',
             value: '"Google Chrome";v="87", " Not;A Brand";v="99", "Chromium";v="87"'
           },
           {

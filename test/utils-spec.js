@@ -246,18 +246,6 @@ describe('utils', () => {
     it('should return name as is when it does not contain "-" and is already capitalized', () => {
       test('Cookie', 'Cookie')
     })
-
-    it('should return capitalized name when it does not contain "-" and is not capitalized', () => {
-      test('cookie', 'Cookie')
-    })
-
-    it('should return name with two capitalized parts when it contains two "-"', () => {
-      test('set-cookie', 'Set-Cookie')
-    })
-
-    it('should return name with three capitalized parts when it contains three "-"', () => {
-      test('x-Server-version', 'X-Server-Version')
-    })
   })
 
   describe('getEmptyStringForUndefined', () => {

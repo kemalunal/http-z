@@ -124,10 +124,11 @@ class HttpZBaseParser {
     }
 
     let boundary = params.match(consts.regexps.boundary)
-    if (!boundary) {
+    if (!boundary || !boundary[0].includes('=')) {
       throw HttpZError.get('Incorrect boundary, expected: boundary=value', params)
     }
-    return _.trim(boundary[0], '"')
+
+    return _.trim(boundary[0].split('=')[1], '"')
   }
 }
 

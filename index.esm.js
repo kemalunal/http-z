@@ -23,15 +23,15 @@
   regexps.responseStartRow = new RegExp(`^${HTTP_PROTOCOL_VERSIONS} \\d{3} ${BASIC_LATIN}*$`);
   // eslint-disable-next-line no-control-regex
   regexps.quoutedHeaderValue = new RegExp('^"[\\u0009\\u0020\\u0021\\u0023-\\u007E]+"$');
-  regexps.boundary = /(?<=boundary=)"{0,1}[A-Za-z0-9'()+_,.:=?-]+"{0,1}/;
+  regexps.boundary = /boundary="{0,1}[A-Za-z0-9'()+_,.:=?-]+"{0,1}/;
   regexps.contentDisposition = new RegExp(
     `^Content-Disposition: *(form-data|inline|attachment)${BASIC_LATIN}*${EOL}`,
     'i'
   );
   regexps.contentType = new RegExp(`^Content-Type:[\\S ]*${EOL}`, 'i');
-  regexps.contentDispositionType = /(?<=Content-Disposition:) *(form-data|inline|attachment)/;
-  regexps.dispositionName = new RegExp(`(?<=name=)"${PARAM_NAME}+"`, 'i');
-  regexps.dispositionFileName = new RegExp('(?<=filename=)".+"', 'i');
+  regexps.contentDispositionType = /Content-Disposition: *(form-data|inline|attachment)/;
+  regexps.dispositionName = new RegExp(`name="${PARAM_NAME}+"`, 'i');
+  regexps.dispositionFileName = new RegExp('filename=".+"', 'i');
 
   const http = {};
 
@@ -359,20 +359,20 @@
     // TODO: test it
     _getDispositionType(contentDisposition) {
       let dispositionType = contentDisposition.match(consts$7.regexps.contentDispositionType);
-      if (!dispositionType) {
+      if (!dispositionType || !dispositionType[0].includes('Disposition:')) {
         throw HttpZError$6.get('Incorrect Content-Disposition type', contentDisposition)
       }
-      dispositionType = _$7.chain(dispositionType[0]).trim().toLower().value();
+      dispositionType = _$7.chain(dispositionType[0].split('Disposition:')[1]).trim().toLower().value();
       return dispositionType
     }
 
     // TODO: test it
     _getParamName(contentDisposition) {
       let paramName = contentDisposition.match(consts$7.regexps.dispositionName);
-      if (!paramName) {
+      if (!paramName || !paramName[0].includes('=')) {
         throw HttpZError$6.get('Incorrect Content-Disposition, expected param name', contentDisposition)
       }
-      paramName = _$7.trim(paramName, '"');
+      paramName = _$7.trim(paramName[0].split('=')[1], '"');
       return paramName
     }
 
@@ -380,7 +380,7 @@
     _getFileName(contentDisposition) {
       let fileName = contentDisposition.match(consts$7.regexps.dispositionFileName);
       if (fileName) {
-        return _$7.trim(fileName, '"')
+        return _$7.trim(fileName[0].split('=')[1], '"')
       }
     }
 
@@ -524,10 +524,11 @@
       }
 
       let boundary = params.match(consts$6.regexps.boundary);
-      if (!boundary) {
+      if (!boundary || !boundary[0].includes('=')) {
         throw HttpZError$5.get('Incorrect boundary, expected: boundary=value', params)
       }
-      return _$6.trim(boundary[0], '"')
+
+      return _$6.trim(boundary[0].split('=')[1], '"')
     }
   }
 

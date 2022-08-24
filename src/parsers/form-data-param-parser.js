@@ -65,20 +65,20 @@ class FormDataParamParser {
   // TODO: test it
   _getDispositionType(contentDisposition) {
     let dispositionType = contentDisposition.match(consts.regexps.contentDispositionType)
-    if (!dispositionType) {
+    if (!dispositionType || !dispositionType[0].includes('Disposition:')) {
       throw HttpZError.get('Incorrect Content-Disposition type', contentDisposition)
     }
-    dispositionType = _.chain(dispositionType[0]).trim().toLower().value()
+    dispositionType = _.chain(dispositionType[0].split('Disposition:')[1]).trim().toLower().value()
     return dispositionType
   }
 
   // TODO: test it
   _getParamName(contentDisposition) {
     let paramName = contentDisposition.match(consts.regexps.dispositionName)
-    if (!paramName) {
+    if (!paramName || !paramName[0].includes('=')) {
       throw HttpZError.get('Incorrect Content-Disposition, expected param name', contentDisposition)
     }
-    paramName = _.trim(paramName, '"')
+    paramName = _.trim(paramName[0].split('=')[1], '"')
     return paramName
   }
 
@@ -86,7 +86,7 @@ class FormDataParamParser {
   _getFileName(contentDisposition) {
     let fileName = contentDisposition.match(consts.regexps.dispositionFileName)
     if (fileName) {
-      return _.trim(fileName, '"')
+      return _.trim(fileName[0].split('=')[1], '"')
     }
   }
 
